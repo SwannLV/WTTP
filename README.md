@@ -3,7 +3,6 @@
 # Welcome to the Jungle #
 
 ```
-cd wttp
 yarn build
 yarn server
 ```

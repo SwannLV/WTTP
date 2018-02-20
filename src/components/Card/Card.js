@@ -42,13 +42,13 @@ const cardTarget = {
 /**
  * Specifies the props to inject into your component.
  */
-function collect(connect, monitor) {
-    return {
-        connectDragSource: connect.dragSource(),
-        connectDropTarget: connect.dropTarget(),
-        isDragging: monitor.isDragging()
-    };
-}
+// function collect(connect, monitor) {
+//     return {
+//         connectDragSource: connect.dragSource(),
+//         connectDropTarget: connect.dropTarget(),
+//         isDragging: monitor.isDragging()
+//     };
+// }
 
 // const propTypes = {
 //     id:
