@@ -3,8 +3,8 @@
 # Welcome to the Jungle #
 
 ```
-yarn build
-yarn server
+1st terminal : yarn server
+2nd terminal: yarn start
 ```
 
 ```
