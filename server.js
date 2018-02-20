@@ -34,7 +34,7 @@ const state = {
           { id: 2, text: "2 Jean René Godart", col: 0 },
           { id: 3, text: "3 Parker Lewis", col: 0 },
           { id: 4, text: "4 Steevie Wonder", col: 1 },
-          { id: 5, text: "5 Hulk Hogan", col: 1 }
+          { id: 5, text: "6 Hulk Hogan Z", col: 1 }
       ]
   }
 }
@@ -44,12 +44,12 @@ io.on('connection', function(client) {
   client.emit('change', state);
 
   client.on('join', function(data) {
-      console.log('join', data);
+    console.log('join', data);
   });
 
-  client.on('messages', function(data) {
-         client.emit('broad', data);
-         client.broadcast.emit('broad', data);
+  client.on('change', function(data) {
+    //client.emit('change', data);
+    client.broadcast.emit('change', data);
   });
 
 });

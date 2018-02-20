@@ -2,7 +2,8 @@ import { Record } from 'immutable';
 import update from 'immutability-helper'
 
 import {
-  MOVE_CARD
+  MOVE_CARD,
+  UPDATE_PIPELINE
 } from '../actions/pipeline';
 
 /* eslint-disable new-cap */
@@ -41,6 +42,12 @@ export default function cards(state = initialState, action) {
 				},
       });
     }   
+
+    case UPDATE_PIPELINE: {
+      const { pipeline } = payload;
+      if(pipeline) return pipeline;
+      break;
+    }
 
     default:
       return state;
