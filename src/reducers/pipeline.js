@@ -1,9 +1,11 @@
 import { Record } from 'immutable';
 import update from 'immutability-helper'
+import { api_postChangeToBackendState } from '../API'
 
 import {
   MOVE_CARD,
-  UPDATE_PIPELINE
+  UPDATE_PIPELINE_FROM_BACKEND,
+  SEND_CHANGE_TO_BACKEND
 } from '../actions/pipeline';
 
 /* eslint-disable new-cap */
@@ -30,23 +32,28 @@ export default function cards(state = initialState, action) {
 
       if((source.col === 0 && cards.filter(c => c.col === 0).length < 2)
           || (source.col === 1 && cards.filter(c => c.col === 1).length < 2)){
-          alert(`Désolé je n'ai pas traité ce bug de 0 élément dans une colonne :)`);
+          alert(`Désolé je n'ai pas traité ce bug de 0 élément dans une colonne :)
+            La drop area est une card, pas la colonne, à changer`);
           return state;
       }
 
       source.col = target.col
-        
+
 			return update(state, {
 				cards: {
 					$splice: [[sourceIndex, 1], [targetIndex, 0, source]],
-				},
+				}
       });
     }   
 
-    case UPDATE_PIPELINE: {
+    case UPDATE_PIPELINE_FROM_BACKEND: {
       const { pipeline } = payload;
       if(pipeline) return pipeline;
-      break;
+      return state;
+    }
+
+    case SEND_CHANGE_TO_BACKEND: {
+      api_postChangeToBackendState(state)
     }
 
     default:

@@ -5,6 +5,7 @@ import Card from "../Card/Card"
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { connect } from 'react-redux'
+import { action_moveCard } from '../../actions/pipeline'
 
 class Pipeline extends Component {
 
@@ -58,13 +59,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        store_moveCard : (dragCard, targetCard) => dispatch({
-            type: 'MOVE_CARD',
-            payload: {
-                dragCard,
-                targetCard
-            }
-        })
+        store_moveCard : (dragCard, targetCard) => action_moveCard(dragCard, targetCard)(dispatch)
     }
 }
 

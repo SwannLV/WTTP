@@ -4,11 +4,11 @@ import './index.css';
 import App from './components/App/App';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
-import { subscribeToBackendState } from './API';
+import { api_subscribeToBackendState } from './API';
 
 const store = configureStore();
 
-subscribeToBackendState(store)
+api_subscribeToBackendState(store)
 
 ReactDOM.render(
     <Provider store={store}>

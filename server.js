@@ -25,6 +25,9 @@ app.get('/', function (req, res) {
 
 // });
 
+
+// Je pourrais faire beaucoup mieux oui, pour gérer le state, seul lieu de vérité, 
+// avec peut être un redux côté back pour tracker les changements correctement
 const state = {
   timestamp: Date.now(),
   pipeline: {
@@ -34,7 +37,7 @@ const state = {
           { id: 2, text: "2 Jean René Godart", col: 0 },
           { id: 3, text: "3 Parker Lewis", col: 0 },
           { id: 4, text: "4 Steevie Wonder", col: 1 },
-          { id: 5, text: "6 Hulk Hogan Z", col: 1 }
+          { id: 5, text: "6 Hulk Hogan", col: 1 }
       ]
   }
 }
@@ -49,7 +52,8 @@ io.on('connection', function(client) {
 
   client.on('change', function(data) {
     //client.emit('change', data);
-    client.broadcast.emit('change', data);
+    console.log('on change... broadcasting change', data);
+    client.broadcast.emit('change', { pipeline: data });
   });
 
 });
