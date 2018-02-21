@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
 
 // Je pourrais faire beaucoup mieux oui, pour gérer le state, seul lieu de vérité, 
 // avec peut être un redux côté back pour tracker les changements correctement
-const state = {
+let state = {
   timestamp: Date.now(),
   pipeline: {
       cards: [
@@ -51,9 +51,18 @@ io.on('connection', function(client) {
   });
 
   client.on('change', function(data) {
-    //client.emit('change', data);
-    console.log('on change... broadcasting change', data);
-    client.broadcast.emit('change', { pipeline: data });
+    const now = Date.now();
+
+    if(now > state.timestamp){
+      console.log('on change... broadcasting change', data);
+      state = { timestamp: Date.now(), pipeline: data };
+      client.broadcast.emit('change', state);
+    }
+    else{
+      console.log('ERROR');
+      client.emit('canceled_change', { title: "Change canceled", message: "Somebody else changed the document sorry :)"});
+      client.emit('change', state);
+    }
   });
 
 });

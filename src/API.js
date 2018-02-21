@@ -7,6 +7,10 @@ socket.on('connect', function() {
     socket.emit('join', 'Hello World from client');
  });
 
+ socket.on('canceled_change', function(data) {
+    alert(`${data.title}\n\n${data.message}`)
+ });
+
 function api_subscribeToBackendState(store) {    
     socket.on('change', function(state) {        
         action_updatePipelineFromBackend(state)(store.dispatch);
