@@ -8,24 +8,10 @@ server.listen(port);
 console.log('> Listening on port', port);
 
 app.get('/', function (req, res) {
-  // console.log(req)
   res.sendfile(__dirname + '/public/index.html');
 });
 
-// app.use(express.static('build'));
-
-// io.on('connection', function (socket) {
-//   console.log('io on connection');
-
-//   socket.emit('news', { hello: 'world' });
-
-//   socket.on('my other event', function (data) {
-//     console.log(data);
-//   });
-
-// });
-
-
+// - THE S.T.A.T.E -
 // Je pourrais faire beaucoup mieux oui, pour gérer le state, seul lieu de vérité, 
 // avec peut être un redux côté back pour tracker les changements correctement
 let state = {
@@ -42,28 +28,34 @@ let state = {
   }
 }
 
+
 io.on('connection', function(client) {  
   console.log('Client connected...');
   client.emit('change', state);
+
 
   client.on('join', function(data) {
     console.log('join', data);
   });
 
+  // ON CHANGE
   client.on('change', function(data) {
     const now = Date.now();
 
+    // BROADCAST THE CHANGE IF NEWER THAN EXISTING STATE
     if(now > state.timestamp){
       console.log('on change... broadcasting change', data);
       state = { timestamp: Date.now(), pipeline: data };
       client.broadcast.emit('change', state);
     }
+    //IF OLDER: SEND GENTLE ERROR MESSAGE AND ROLLBACK THE CLIENT STATE TO THE CURRENT ONE
     else{
       console.log('ERROR');
       client.emit('canceled_change', { title: "Change canceled", message: "Somebody else changed the document sorry :)"});
       client.emit('change', state);
     }
   });
+
 
 });
 
