@@ -1,6 +1,6 @@
 # WTTP
 
-# Welcome to the Jungle #
+# Welcome to the PAMPA #
 
 ```
 1st terminal : yarn server
