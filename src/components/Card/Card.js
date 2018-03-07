@@ -2,15 +2,11 @@ import './Card.css'
 import React, { Component } from 'react'
 import { DragSource, DropTarget } from 'react-dnd'
 import flow from 'lodash.flow';
-// import PropTypes from 'prop-types'
 
 const Types = {
     CARD: 'card'
 };
 
-/**
- * Implements the drag source contract.
- */
 const cardSource = {
     beginDrag(props) {
         console.log('beginDrag: ', props);
@@ -39,27 +35,6 @@ const cardTarget = {
 	},
 };
 
-/**
- * Specifies the props to inject into your component.
- */
-// function collect(connect, monitor) {
-//     return {
-//         connectDragSource: connect.dragSource(),
-//         connectDropTarget: connect.dropTarget(),
-//         isDragging: monitor.isDragging()
-//     };
-// }
-
-// const propTypes = {
-//     id:
-//     column:
-//     text: PropTypes.string.isRequired,
-//     moveCard: PropTypes.func.isRequired,
-//     isDragging: PropTypes.bool.isRequired,  // Injected by React DnD
-//     connectDropTarget: PropTypes.func.isRequired, // Injected by React DnD
-//     connectDragSource: PropTypes.func.isRequired // Injected by React DnD
-//  };
-
 class Card extends Component {
     render() {
         const { isDragging, connectDragSource, connectDropTarget  } = this.props;
@@ -70,8 +45,6 @@ class Card extends Component {
         ))
     }
 }
-
-// Card.propTypes = propTypes;
 
 export default flow(
     DragSource(Types.CARD, cardSource, connect => ({connectDragSource: connect.dragSource()})),
