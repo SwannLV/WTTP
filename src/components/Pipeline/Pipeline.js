@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import './Pipeline.css'
 import Card from "../Card/Card"
-// import update from 'immutability-helper'
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 import { connect } from 'react-redux'
 import { action_moveCard } from '../../actions/pipeline'
 
